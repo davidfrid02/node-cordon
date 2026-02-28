@@ -39,13 +39,15 @@ Define exactly what your application is allowed to access.
 {
   "permissions": {
     "fs": {
-      "read": ["./dist", "./node_modules"],
+      "read": ["./dist"],
       "write": ["./logs"]
     },
     "net": ["api.stripe.com", "localhost:5432"]
   }
 }
 ```
+
+> **Note:** `node_modules`, the Node.js executable directory, and the entry script itself are always allowed automatically — you do not need to list them.
 
 ### 2. Build your app
 
@@ -67,12 +69,13 @@ cordon reads `cordon.config.json`, translates it into the appropriate `--permiss
 
 ## Programmatic API
 
-Use `Cordon.shield` inside your application to handle permission denials gracefully:
+### `Cordon.shield(scope, reference, action, fallback)`
+
+Executes `action` if the permission is granted, otherwise returns `fallback` without throwing.
 
 ```typescript
 import { Cordon } from 'node-cordon';
 
-// Executes the action if permitted, returns the fallback if denied
 const config = await Cordon.shield(
   'fs.read',
   './config/database.json',
@@ -81,7 +84,9 @@ const config = await Cordon.shield(
 );
 ```
 
-Use `Cordon.has` to check a permission directly:
+### `Cordon.has(scope, reference)`
+
+Returns `true` if the process has the requested permission.
 
 ```typescript
 if (Cordon.has('net', 'api.stripe.com')) {
@@ -89,7 +94,9 @@ if (Cordon.has('net', 'api.stripe.com')) {
 }
 ```
 
-When the permission model is not active (e.g. during local development without the `--permission` flag), both methods default to allowing all operations.
+**Valid scopes:** `'fs.read'` | `'fs.write'` | `'net'` | `'worker'`
+
+When the permission model is not active (e.g. local development without the `--permission` flag), both methods default to allowing all operations.
 
 ---
 
@@ -99,7 +106,7 @@ When the permission model is not active (e.g. during local development without t
 {
   "permissions": {
     "fs": {
-      "read": ["./dist", "./node_modules"],
+      "read": ["./dist"],
       "write": ["./tmp"]
     },
     "net": ["api.example.com", "localhost:3000"],
@@ -121,7 +128,9 @@ When the permission model is not active (e.g. during local development without t
 | `permissions.wasi` | `boolean` | Allow WASI system interface access |
 | `permissions.inspector` | `boolean` | Allow the Node.js debugger/inspector |
 
-Paths are resolved relative to the working directory where `cordon` is invoked.
+All fields are optional. Boolean flags default to `false` when omitted. Paths are resolved relative to the working directory where `cordon` is invoked.
+
+> **Note:** `permissions.worker` is automatically set to `true` when running a `.ts` file, since the tsx TypeScript loader requires it internally.
 
 ---
 
