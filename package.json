@@ -1,6 +1,6 @@
 {
   "name": "cordon-runtime",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sophisticated runtime permission management for Node.js 24+.",
   "type": "module",
   "main": "./dist/index.js",
@@ -10,6 +10,10 @@
   },
   "bin": {
     "cordon": "./dist/bin/cordon.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidfrid02/node-cordon"
   },
   "keywords": [
     "security",

@@ -1,0 +1,6 @@
+# Anthropic / Claude Code
+.claude/
+
+# Logs and OS files
+*.log
+.DS_Store
