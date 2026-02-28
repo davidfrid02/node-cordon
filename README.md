@@ -1,18 +1,18 @@
-# node-cordon
+# cordon-runtime
 
 **Runtime permission management for Node.js 24+.**
 
-`node-cordon` is a developer-friendly orchestrator for the native Node.js Permission Model. It replaces complex CLI flag strings with a declarative `cordon.config.json` and a type-safe API, allowing you to lock down exactly what your application and its dependencies are allowed to touch.
+`cordon-runtime` is a developer-friendly orchestrator for the native Node.js Permission Model. It replaces complex CLI flag strings with a declarative `cordon.config.json` and a type-safe API, allowing you to lock down exactly what your application and its dependencies are allowed to touch.
 
-[![NPM Version](https://img.shields.io/npm/v/node-cordon.svg)](https://www.npmjs.com/package/node-cordon)
+[![NPM Version](https://img.shields.io/npm/v/cordon-runtime.svg)](https://www.npmjs.com/package/cordon-runtime)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
 ---
 
-## Why node-cordon?
+## Why cordon-runtime?
 
-Node.js 24+ ships a native Permission Model, but managing it manually means maintaining long, fragile CLI strings. `node-cordon` brings order to that.
+Node.js 24+ ships a native Permission Model, but managing it manually means maintaining long, fragile CLI strings. `cordon-runtime` brings order to that.
 
 - **Declarative security:** Define permissions in `cordon.config.json` instead of inline bash flags.
 - **Supply chain defense:** Prevent malicious npm packages from reading your `.env` or calling unknown servers.
@@ -24,7 +24,7 @@ Node.js 24+ ships a native Permission Model, but managing it manually means main
 ## Installation
 
 ```bash
-npm install node-cordon
+npm install cordon-runtime
 ```
 
 ---
@@ -74,7 +74,7 @@ cordon reads `cordon.config.json`, translates it into the appropriate `--permiss
 Executes `action` if the permission is granted, otherwise returns `fallback` without throwing.
 
 ```typescript
-import { Cordon } from 'node-cordon';
+import { Cordon } from 'cordon-runtime';
 
 const config = await Cordon.shield(
   'fs.read',
@@ -136,7 +136,7 @@ All fields are optional. Boolean flags default to `false` when omitted. Paths ar
 
 ## Comparison
 
-| Feature | Standard Node.js | node-cordon |
+| Feature | Standard Node.js | cordon-runtime |
 | :--- | :--- | :--- |
 | Configuration | Manual `--permission` CLI flags | `cordon.config.json` |
 | Developer experience | Hard to maintain | Version-controlled and readable |

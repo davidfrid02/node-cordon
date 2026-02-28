@@ -1,5 +1,5 @@
 {
-  "name": "node-cordon",
+  "name": "cordon-runtime",
   "version": "1.0.0",
   "description": "Sophisticated runtime permission management for Node.js 24+.",
   "type": "module",
