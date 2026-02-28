@@ -1,0 +1,32 @@
+{
+  "name": "node-cordon",
+  "version": "1.0.0",
+  "description": "Sophisticated runtime permission management for Node.js 24+.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "bin": {
+    "cordon": "./dist/bin/cordon.js"
+  },
+  "keywords": [
+    "security",
+    "sandbox",
+    "permissions",
+    "node-runtime",
+    "allow-net",
+    "allow-fs"
+  ],
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "npm run build && node --test dist/test/guard.test.js"
+  }
+}
